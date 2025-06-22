@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Blocked Site Logs</title>
+  <link rel="stylesheet" href="logs.css">
+</head>
+<body>
+  <div class="container">
+    <h1>📊 Blocked Site Logs</h1>
+    <table>
+      <thead>
+        <tr>
+          <th>🔗 URL</th>
+          <th>🕒 Time Blocked</th>
+        </tr>
+      </thead>
+      <tbody id="logTableBody">
+        <tr><td colspan="2">⏳ Loading logs...</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <script>
+    function formatTime(timeStr) {
+      const d = new Date(timeStr);
+      return d.toLocaleString();
+    }
+
+    chrome.storage.local.get(["logs"], ({ logs }) => {
+      const tbody = document.getElementById("logTableBody");
+      tbody.innerHTML = "";
+
+      if (!logs || logs.length === 0) {
+        tbody.innerHTML = "<tr><td colspan='2'>✅ No blocked logs found.</td></tr>";
+        return;
+      }
+
+      logs.reverse().forEach(log => {
+        const row = document.createElement("tr");
+        row.innerHTML = `<td>${log.url}</td><td>${formatTime(log.time)}</td>`;
+        tbody.appendChild(row);
+      });
+    });
+  </script>
+</body>
+</html>

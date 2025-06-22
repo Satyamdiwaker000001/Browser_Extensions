@@ -1,0 +1,36 @@
+{
+  "manifest_version": 3,
+  "name": "Focus Blocker Pro",
+  "version": "1.0",
+  "description": "Block porn, ads, trackers, and dark web. Includes motivational redirect and time scheduler.",
+  "permissions": [
+    "storage",
+    "declarativeNetRequest",
+    "webNavigation",
+    "scripting",
+    "tabs"
+  ],
+  "host_permissions": [
+    "<all_urls>"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": "icon.png"
+  },
+  "icons": {
+    "16": "icon.png",
+    "48": "icon.png",
+    "128": "icon.png"
+  },
+
+  "web_accessible_resources": [
+  {
+    "resources": ["logs.html", "logs.css"],
+    "matches": ["<all_urls>"]
+  }
+]
+
+}
